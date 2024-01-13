@@ -23,10 +23,12 @@ while True:
             if deposit_amount < 500:
                 print("")
                 print("Minimum Deposit is ₦500")
+                quit()
 
             elif deposit_amount > 500000:
                 print("")
                 print("Maximum Deposit is ₦500000")
+                quit()
 
             User.deposit_money(deposit_amount)
             User.deposit_success_prompt(deposit_amount)
