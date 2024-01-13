@@ -45,11 +45,11 @@ Clear instructions: Easy to follow prompts guide you through the process.
 
 ## Contributing
 
-Fork the repository
-Create a branch for your changes
-Commit your changes
-Push your branch
-Create a pull request
+- Fork the repository
+- Create a branch for your changes
+- Commit your changes
+- Push your branch
+- Create a pull request
 
 ## License
 
