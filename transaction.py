@@ -35,7 +35,7 @@ class Transaction:
                 print("")
                 quit()
         except Exception:
-            Transaction.another_transaction_prompt()
+            self.another_transaction_prompt()
 
     def check_balance(self):
         with open("account_info.json", "r") as f:
@@ -82,10 +82,28 @@ class Transaction:
         print("")
         print("Thanks for banking with us!")
         print("")
-        quit()
+        exit()
 
     def sad_quit(self):
         print("")
         print("Please, try again later")
         print("")
         quit()
+
+    def print_receipt_prompt(self):
+        print("")
+        print("Do you want to print receipt?")
+        print("")
+        print("1.) Yes")
+        print("2.) No")
+        print("")
+        print_yesno = input("Enter an option: ")
+        print("")
+        try:
+            if print_yesno == "1":
+                #self.print_receipt()
+                print("$$$$$$$$$$$")
+            elif print_yesno == "2":
+                self.another_transaction_prompt(self)
+        except Exception:
+            self.prompt()
