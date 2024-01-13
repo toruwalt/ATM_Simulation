@@ -18,11 +18,24 @@ class Transaction:
         print("4.) - Quit")
         print("")
 
-    def prompt_yesno(self):
+    def another_transaction_prompt(self):
+        print("Do you want to perform another transaction?")
         print("")
         print("1.) Yes")
         print("2.) No")
         print("")
+        yesno = input("Enter an option: ")
+        print("")
+        try:
+            if yesno == "1":
+                User = Transaction()
+            elif yesno == "2":
+                print("")
+                print("Thanks for banking with us!")
+                print("")
+                quit()
+        except Exception:
+            Transaction.another_transaction_prompt()
 
     def check_balance(self):
         with open("account_info.json", "r") as f:
