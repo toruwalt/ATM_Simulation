@@ -6,17 +6,26 @@ Explore basic banking functionalities right from your command line.
 
 ## Installation
 
-Clone the repository:
+### Clone the repository:
 
+```git
 git clone https://github.com/toruwalt/ATM_Simulation.git
+```
 
-Navigate to the project directory:
 
+### Navigate to the project directory:
+
+```bash
 cd ATM_Simulation
+```
 
-Execute the main file:
 
-python3 operation.py
+### Execute the main file:
+
+```py
+python operation.py
+```
+
 
 ## Usage
 
