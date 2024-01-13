@@ -46,20 +46,22 @@ class Transaction:
         print("")
 
     def deposit_money(self, amount):
-        if type(amount) != int:
-            print("Please Enter a Valid Amount")
-        elif amount < 0:
-            print("Are you depositing or withdrawing?")
-        else:
-            self.amount = amount
+        """Makes changes to account_info"""
+        self.amount = amount
 
-            with open("account_info.json", "r") as f:
-                data = json.load(f)
-                old_balance = data["account_balance"]
-                new_balance = old_balance + self.amount
-                with open("account_info.json", "w") as f:
-                    data["account_balance"] = new_balance
-                    json.dump(data, f)
+        with open("account_info.json", "r") as f:
+            data = json.load(f)
+            old_balance = data["account_balance"]
+            new_balance = old_balance + self.amount
+            with open("account_info.json", "w") as f:
+                data["account_balance"] = new_balance
+                json.dump(data, f)
+
+    def deposit_success_prompt(self, deposit_amount):
+        """Returns a success message"""
+        print("")
+        print("The sum of ₦{} was deposit succesful in to your account".format(deposit_amount))
+        print("")
 
     def withdraw_money(self, amount):
         if type(amount) != int:
@@ -75,3 +77,15 @@ class Transaction:
             with open("account_info.json", "w") as f:
                 data["account_balance"] = new_balance
                 json.dump(data, f)
+
+    def happy_quit(self):
+        print("")
+        print("Thanks for banking with us!")
+        print("")
+        quit()
+
+    def sad_quit(self):
+        print("")
+        print("Please, try again later")
+        print("")
+        quit()

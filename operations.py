@@ -23,29 +23,24 @@ while True:
             if deposit_amount < 500:
                 print("")
                 print("Minimum Deposit is ₦500")
+
+            elif deposit_amount > 500000:
                 print("")
-                User()
+                print("Maximum Deposit is ₦500000")
 
             User.deposit_money(deposit_amount)
-            print("")
-            print("The sum of ₦{} was deposit succesful in to your account".format(deposit_amount))
-            print("")
+            User.deposit_success_prompt(deposit_amount)
             User.check_balance()
             print("")
             User.another_transaction_prompt()
 
         except:
-            print("Please, try again later")
-            print("")
-            quit()
+            User.sad_quit()
 
     elif banking_selection == "3":
         print("a")
     elif banking_selection == "4":
-        print("")
-        print("Thanks for banking with us!")
-        print("")
-        quit()
+        User.happy_quit()
     else:
         print("Please Enter 1-4")
 
