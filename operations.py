@@ -46,9 +46,10 @@ while True:
     elif banking_selection == "4":
         User.happy_quit()
     else:
-        print("Please Enter 1-4")
+        print("")
+        print("Select options 1 to 4 to Proceed")
+        print("")
 
-#    time.sleep(60)
 
 
 

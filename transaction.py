@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 import json
+import datetime
+import random
 
 class Transaction:
     transaction_id = 0
@@ -60,7 +62,7 @@ class Transaction:
     def deposit_success_prompt(self, deposit_amount):
         """Returns a success message"""
         print("")
-        print("The sum of ₦{} was deposit succesful in to your account".format(deposit_amount))
+        print("The sum of ₦{} was succesfully depositted into your account".format(deposit_amount))
         print("")
 
     def withdraw_money(self, amount):
@@ -101,9 +103,39 @@ class Transaction:
         print("")
         try:
             if print_yesno == "1":
-                #self.print_receipt()
-                print("$$$$$$$$$$$")
+                self.print_receipt()
             elif print_yesno == "2":
                 self.another_transaction_prompt(self)
-        except Exception:
-            self.prompt()
+        except Exception as err:
+            print(f"Unexpected {err}, {type(err) = }")
+
+    def print_receipt(self):
+        now = datetime.datetime.now()
+        transaction_date = now.strftime("%Y-%m-%d %H:%M:%S")
+        receipt_number = random.randint(1, 9) * 100000 + random.randint(0, 99999)
+        client_number = random.randint(1, 9) * 100 + random.randint(0, 999)
+        pan_1 = random.randint(1, 9) * 1000000 + random.randint(0, 999999)
+        pan_2 = random.randint(1, 9) * 1000 + random.randint(0, 99)
+        trans_ref = random.randint(1, 9) * 100 + random.randint(0, 99999)
+
+        print("__________________________________________________")
+        print("__________________________________________________")
+        print("__________________________________________________")
+        print("")
+        print("------------------*** BANKXYZ ***-----------------")
+        print("")
+        print("--------------*** CUSTOMER'S COPY ***-------------")
+        print("")
+        print("TERMINAL                     ATM")
+        print("RECEIPT NO                   {}".format(receipt_number))
+        print("DATE & TIME                  {}".format(transaction_date))
+        print("CARD                         MASTERCARD")
+        print("CLIENT                       0000{}".format(client_number))
+        print("PAN                          {}*****{}".format(pan_1, pan_2))
+        print("TRANSACTION REF              NGR|LG|{}".format(trans_ref))
+        print("AMOUNT                       {}".format(self.amount))
+        print("STATUS                       APPROVED")
+        print("")
+        print("__________________________________________________")
+        print("__________________________________________________")
+        print("__________________________________________________")
