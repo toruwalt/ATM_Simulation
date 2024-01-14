@@ -6,8 +6,10 @@ import random
 class Transaction:
     transaction_id = 0
 
-    def __init__(self):
+    def __init__(self, transaction_status=None):
         Transaction.transaction_id += 1
+        self.transaction_status = True
+        self.transaction_type_Deposit = True
 
     def prompt(self):
         print("--------------------------------------------------")
@@ -50,6 +52,8 @@ class Transaction:
     def deposit_money(self, amount):
         """Makes changes to account_info"""
         self.amount = amount
+        self.transaction_status=True
+        self.transaction_type_Deposit = True
 
         with open("account_info.json", "r") as f:
             data = json.load(f)
@@ -66,19 +70,26 @@ class Transaction:
         print("")
 
     def withdraw_money(self, amount):
-        if type(amount) != int:
-            raise TypeError("Please Enter a Valid Amount")
-        elif amount < 0:
-            raise ValueError("To little to withdraw")
+        self.amount = amount
+        self.transaction_type_Deposit = False
+
+        with open("account_info.json", "r") as f:
+            data = json.load(f)
+            old_balance = data["account_balance"]
+        if amount > old_balance:
+            print("Insufficient Funds")
+            print("")
+            self.transaction_status = False
+                
         else:
-            self.amount = amount
-            with open("account_info.json", "r") as f:
-                data = json.load(f)
-                old_balance = data["account_balance"]
-                new_balance = old_balance - self.amount
+            new_balance = old_balance - self.amount
             with open("account_info.json", "w") as f:
                 data["account_balance"] = new_balance
                 json.dump(data, f)
+            print("")
+            print("The sum of ₦{} was succesfully withdrew from your account".format(self.amount))
+            print("")
+            self.transaction_status = True
 
     def happy_quit(self):
         print("")
@@ -105,11 +116,19 @@ class Transaction:
             if print_yesno == "1":
                 self.print_receipt()
             elif print_yesno == "2":
-                self.another_transaction_prompt(self)
+                self.another_transaction_prompt()
         except Exception as err:
             print(f"Unexpected {err}, {type(err) = }")
 
     def print_receipt(self):
+        if self.transaction_status == True:
+            T_status = "APPROVED"
+        else:
+            T_status = "DECLINED"
+        if self.transaction_type_Deposit == True:
+            T_type = "DEPOSIT"
+        else:
+            T_type = "WITHDRAWAL"
         now = datetime.datetime.now()
         transaction_date = now.strftime("%Y-%m-%d %H:%M:%S")
         receipt_number = random.randint(1, 9) * 100000 + random.randint(0, 99999)
@@ -127,14 +146,15 @@ class Transaction:
         print("--------------*** CUSTOMER'S COPY ***-------------")
         print("")
         print("TERMINAL                     ATM")
+        print("TRANSACTION                  {}".format(T_type))
         print("RECEIPT NO                   {}".format(receipt_number))
         print("DATE & TIME                  {}".format(transaction_date))
         print("CARD                         MASTERCARD")
         print("CLIENT                       0000{}".format(client_number))
         print("PAN                          {}*****{}".format(pan_1, pan_2))
         print("TRANSACTION REF              NGR|LG|{}".format(trans_ref))
-        print("AMOUNT                       {}".format(self.amount))
-        print("STATUS                       APPROVED")
+        print("AMOUNT                       ₦{}".format(self.amount))
+        print("STATUS                       {}".format(T_status))
         print("")
         print("__________________________________________________")
         print("__________________________________________________")

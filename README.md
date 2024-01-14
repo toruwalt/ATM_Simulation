@@ -23,7 +23,7 @@ cd ATM_Simulation
 ### Execute the main file:
 
 ```py
-python operation.py
+python operations.py
 ```
 
 
